@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "atomic-algolia": "^0.3.19",
+    "atomic-algolia": "^0.3.19"
   },
   "name": "liutxxx.github.io",
   "description": "LiuTxxx's Homepage",
