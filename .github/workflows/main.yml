@@ -95,17 +95,6 @@ jobs:
           extended: true
       - name: Build
         run: npm run build
-      - name: Deploy to Github Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          deploy_key: ${{ secrets.GP_DEPLOY_KEY }}
-          external_repository: Lruihao/lruihao.github.io
-          publish_branch: main
-          publish_dir: ./public
-          user_name: 'github-actions[bot]'
-          user_email: 'github-actions[bot]@users.noreply.github.com'
-          commit_message: ':rocket: ${{ github.event.head_commit.message }}'
-          force_orphan: false  # once a year
       - name: Update Algolia index
         env:
           ALGOLIA_APP_ID: MTJNHU0JVB
