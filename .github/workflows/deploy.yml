@@ -3,13 +3,13 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'assets/**'
-      - 'config/**'
-      - 'content/**'
-      - 'data/**'
-      - 'static/**'
-      - 'themes/**'
+#    paths:
+#      - 'assets/**'
+#      - 'config/**'
+#      - 'content/**'
+#      - 'data/**'
+#      - 'static/**'
+#      - 'themes/**'
   workflow_run:
     workflows: ['Update theme']
     types:
