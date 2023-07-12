@@ -1,10 +1,11 @@
 ---
-baseurl: "http://localhost:1313/"
-DefaultContentLanguage: "zh-cn"
+baseurl: "//"
+
+DefaultContentLanguage: "us"
 hasCJKLanguage: true
-languageCode: "zh-cn"
-title: "River's Site"
-theme: "beautifulhugo"
+languageCode: "us"
+title: "my homepage"
+theme: "FixIt"
 metaDataFormat: "yaml"
 algolia:
   index: "github_page"
