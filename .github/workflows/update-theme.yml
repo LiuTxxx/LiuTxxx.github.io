@@ -26,7 +26,7 @@ jobs:
       - name: Change remote origin
         run: |
           git remote remove origin
-          git remote add origin https://github.com/LiuTxxx/LiuTxxx.github.io.git
+          git remote add origin git@github.com:LiuTxxx/LiuTxxx.github.io.git
 
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v4
