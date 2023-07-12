@@ -1,13 +1,17 @@
 {
   "dependencies": {
-    "atomic-algolia": "^0.3.19"
+    "atomic-algolia": "^0.3.19",
   },
   "name": "liutxxx.github.io",
   "description": "LiuTxxx's Homepage",
   "version": "1.0.0",
   "devDependencies": {},
   "scripts": {
-    "algolia": "atomic-algolia"
+    "algolia": "atomic-algolia",
+    "build": "hugo -v --gc --minify",
+    "server": "hugo server -D --disableFastRender --navigateToChanged --bind 0.0.0.0",
+    "server:production": "npm run server -- --environment production",
+    "update:theme": "git submodule update --remote --merge themes/FixIt && git add . && git commit -m ':arrow_up: Chore(theme): update FixIt version'"
   },
   "author": "Liu Tong (LiuTxxx.github.io)",
   "license": "MIT"
