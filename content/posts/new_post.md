@@ -7,9 +7,9 @@ author:
   name: df
   link: https://liutxxx.github.io/
   email: liut0130@gmail.com
-  avatar: ./assets/favicon.ico
+  avatar: /favicon.ico
 description:
-keywords: love
+keywords: 
 license:
 comment: false
 weight: 0
@@ -57,8 +57,13 @@ Just install latest version of [ Hugo extended edition(>= 0.109.0)](https://gohu
 
 Hugo provides a `new` command to create a new website:
 
-```bash
+```java
 hugo new site my_website cd my_website
+d
+dd
+d
+d
+
 ```
 
 ## test heading 2
@@ -70,10 +75,6 @@ hugo new site my_website cd my_website
 Initialize an empty Git repository in the current directory.
 
 Clone the [FixIt](https://github.com/hugo-fixit/FixIt) theme into the `themes` directory, adding it to your project as a [Git submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules).
-
-| `1 2 ` | `git init git submodule add https://github.com/hugo-fixit/FixIt.git themes/FixIt` |
-| ------ | ------------------------------------------------------------ |
-|        |                                                              |
 
 And later you can update the submodule in your site directory to the latest commit using this command:
 

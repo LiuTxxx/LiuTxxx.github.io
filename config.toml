@@ -7,8 +7,8 @@
 # Menu Configuration
 # See: https://fixit.lruihao.cn/documentation/basics/#menu-configuration
 # -------------------------------------------------------------------------------------
-title = "LiuTxxx's Homepage"
-baseURL = "http://example.org/"
+title = "Liu's Homepage"
+baseURL = "http://localhost:1313"
 # determines default content language ["en", "zh-cn", "fr", "pl", ...]
 defaultContentLanguage = "en"
 # language code ["en", "zh-CN", "fr", "pl", ...]
@@ -22,7 +22,12 @@ name = "Liu Tong"
 email = "liut0130@gmail.com"
 link = ""
 
-
+# Markup related configuration in Hugo
+[markup]
+# Syntax Highlighting (https://gohugo.io/content-management/syntax-highlighting)
+[markup.highlight]
+# false is a necessary configuration (https://github.com/hugo-fixit/FixIt/issues/43)
+noClasses = false
 
 
 [menu]
@@ -120,7 +125,7 @@ link = ""
   [params.search]
     enable = true
     # type of search engine ["lunr", "algolia", "fuse"]
-    type = "fuse"
+    type = "algolia"
     # max index length of the chunked content
     contentLength = 4000
     # placeholder of the search bar
@@ -134,20 +139,9 @@ link = ""
     # FixIt 0.2.4 | NEW whether to use the absolute URL based on the baseURL in search index
     absoluteURL = false
     [params.search.algolia]
-      index = "https://raw.githubusercontent.com/hugo-fixit/FixIt/6df8f283f240fd8f24cf8787318f4946eb200b69/layouts/index.json"
-      appID = ""
-      searchKey = ""
-    [params.search.fuse]
-      # FixIt 0.2.17 | NEW https://fusejs.io/api/options.html
-      isCaseSensitive = false
-      minMatchCharLength = 2
-      findAllMatches = false
-      location = 0
-      threshold = 0.3
-      distance = 100
-      ignoreLocation = false
-      useExtendedSearch = false
-      ignoreFieldNorm = false
+      index = "github_page"
+      appID = "UI7A7723G5"
+      searchKey = "0744b3711ddac0890b0294695f7a2bd3"
 
   # Header config
   [params.header]
@@ -160,7 +154,7 @@ link = ""
       # URL of the LOGO
       logo = "/favicon.jpg"
       # title name
-      name = "LiuTxxx's Homepage"
+      name = "Liu's Homepage"
       # you can add extra information before the name (HTML format is supported), such as icons
       pre = ""
       # you can add extra information after the name (HTML format is supported), such as icons

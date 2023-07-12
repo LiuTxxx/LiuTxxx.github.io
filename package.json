@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "atomic-algolia": "^0.3.19"
+  },
+  "name": "liutxxx.github.io",
+  "description": "LiuTxxx's Homepage",
+  "version": "1.0.0",
+  "devDependencies": {},
+  "scripts": {
+    "algolia": "atomic-algolia"
+  },
+  "author": "Liu Tong (LiuTxxx.github.io)",
+  "license": "MIT"
+}
