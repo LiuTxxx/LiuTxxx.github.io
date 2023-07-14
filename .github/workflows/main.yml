@@ -65,6 +65,17 @@ jobs:
         with:
           path: ./public
 
+  generate-algolia:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: caibingcheng/hugo-algolia2@v1
+        with:
+          input: "./posts/**"
+          output: "./algolia.json"
+          index: 'github_page'
+          apikey: ${{ secrets.ALGOLIA_ADMIN_KEY }}
+          appid: UI7A7723G5
   # Deployment job
   deploy:
     environment:
@@ -77,30 +88,30 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v2
 
-  Actions-Hugo-Deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v3
-        with:
-          ssh-key: ${{ secrets.SYNC_CONTENT }}
-          submodules: true  # Fetch Hugo themes (true OR recursive)
-          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
-      - name: Install
-        run: npm install
-      - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v2
-        with:
-          hugo-version: latest
-          extended: true
-      - name: Build
-        run: npm run build
-      - name: Create index
-        run: hugo-algolia -s
-      - name: Update Algolia index
-        env:
-          ALGOLIA_APP_ID: MTJNHU0JVB
-          ALGOLIA_ADMIN_KEY: ${{ secrets.ALGOLIA_ADMIN_KEY }}
-          ALGOLIA_INDEX_NAME: 'index'
-          ALGOLIA_INDEX_FILE: './public/algolia.json'
-        run: npm run algolia
+#  Actions-Hugo-Deploy:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Check out repository code
+#        uses: actions/checkout@v3
+#        with:
+#          ssh-key: ${{ secrets.SYNC_CONTENT }}
+#          submodules: true  # Fetch Hugo themes (true OR recursive)
+#          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+#      - name: Install
+#        run: npm install
+#      - name: Setup Hugo
+#        uses: peaceiris/actions-hugo@v2
+#        with:
+#          hugo-version: latest
+#          extended: true
+#      - name: Build
+#        run: npm run build
+#      - name: Create index
+#        run: hugo-algolia -s
+#      - name: Update Algolia index
+#        env:
+#          ALGOLIA_APP_ID: MTJNHU0JVB
+#          ALGOLIA_ADMIN_KEY: ${{ secrets.ALGOLIA_ADMIN_KEY }}
+#          ALGOLIA_INDEX_NAME: 'index'
+#          ALGOLIA_INDEX_FILE: './public/algolia.json'
+#        run: npm run algolia
