@@ -2,6 +2,7 @@
 title: new_post
 subtitle:
 date: 2023-07-11T18:00:48+08:00
+lastmod: 2023-07-14T20:35:48+08:00
 draft: false
 author:
   name: df
@@ -11,7 +12,7 @@ author:
 description:
 keywords: 
 license:
-comment: false
+comment: true
 weight: 0
 tags:
   - draft
@@ -31,7 +32,7 @@ lightgallery: false
 password:
 message:
 repost:
-  enable: true
+  enable: false
   url:
 
 # See details front matter: https://fixit.lruihao.cn/documentation/content-management/introduction/#front-matter
