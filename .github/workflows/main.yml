@@ -71,7 +71,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: caibingcheng/hugo-algolia2@v1
         with:
-          input: "./posts/**"
+          input: "./content/posts/**"
           output: "./algolia.json"
           index: 'github_page'
           apikey: ${{ secrets.ALGOLIA_ADMIN_KEY }}
