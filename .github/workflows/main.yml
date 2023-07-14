@@ -69,13 +69,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: caibingcheng/hugo-algolia2@v1
-        with:
-          input: "./content/posts/**"
-          output: "./algolia.json"
-          index: 'github_page'
-          apikey: ${{ secrets.ALGOLIA_ADMIN_KEY }}
-          appid: UI7A7723G5
+      - name: install hugo-lovelt-algolia
+        run: npm install hugo-lovelt-algolia -g
+      - name: generate index and update
+        run: hugo-lovelt-algolia -s
+
   # Deployment job
   deploy:
     environment:
