@@ -201,7 +201,7 @@ noClasses = false
       enable = true
       animate = true
       icon = "fa-solid fa-heartbeat"
-      pre = ""
+      pre = "running"
       value = "2023-07-11T19:00:00+08:00" # e.g. "2021-12-18T16:15:22+08:00"
     # FixIt 0.2.17 | NEW footer lines order, optional values: ["first", 0, 1, 2, 3, 4, 5, "last"]
     [params.footer.order]
@@ -274,12 +274,12 @@ noClasses = false
 
   # FixIt 0.2.16 | CHANGED Social config about the author
   [params.social]
-    GitHub = "1"
-    Linkedin = "1"
-    Twitter = "1"
-    Instagram = "1"
+    GitHub = "LiuTxxx"
+    Linkedin = ""
+    Twitter = "LiuTxxx"
+    Instagram = ""
     Facebook = ""
-    Telegram = ""
+    Telegram = "LiuTxxx"
     Medium = ""
     Gitlab = ""
     Youtubelegacy = ""
@@ -335,7 +335,7 @@ noClasses = false
     Gitea = ""
     XMPP = ""
     Matrix = ""
-    Bilibili = ""
+    Bilibili = "39510954"
     ORCID = ""
     Liberapay = ""
     Ko-Fi = ""
@@ -358,9 +358,9 @@ noClasses = false
     TryHackMe = ""
     Douyin = ""
     TikTok = ""
-    Phone = ""
-    Email = ""
-    RSS = true
+    Phone = "+8617679321002"
+    Email = "liut0130@gmail.com"
+    RSS = false
 
   [params.snake]
 
@@ -488,7 +488,7 @@ noClasses = false
     [params.page.share]
       enable = true
       Twitter = true
-      Facebook = true
+      Facebook = false
       Linkedin = false
       Whatsapp = false
       Pinterest = false
@@ -511,7 +511,7 @@ noClasses = false
       Baidu = false
       Odnoklassniki = false
       Evernote = false
-      Skype = false
+      Skype = true
       Trello = false
       Mix = false
     # FixIt 0.2.15 | CHANGED Comment config
