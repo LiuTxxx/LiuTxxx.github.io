@@ -28,7 +28,7 @@ link = ""
 [markup.highlight]
 # false is a necessary configuration (https://github.com/hugo-fixit/FixIt/issues/43)
 noClasses = false
-
+lineNos = true
 
 [menu]
   [[menu.main]]
