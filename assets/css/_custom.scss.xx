@@ -1,6 +1,6 @@
 .home {
   .profile-ghchart {
-    width: MIN(3000px, 100%);
+    width: 100%;
     background: url(wgs.jpg) no-repeat center center;
 
   }
