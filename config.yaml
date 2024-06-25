@@ -1,0 +1,9 @@
+---
+baseURL: "/"
+theme: "FixIt"
+metaDataFormat: "yaml"
+algolia:
+  index: "github_page"
+  key: "0744b3711ddac0890b0294695f7a2bd3"
+  appID: "UI7A7723G5"
+---
