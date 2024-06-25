@@ -1086,7 +1086,7 @@ defaultContentLanguageInSubdir = true
       Mix = false
     # FixIt 0.2.15 | CHANGED Comment config
     [params.page.comment]
-      enable = false
+      enable = true
       # FixIt 0.2.13 | NEW Artalk comment config (https://artalk.js.org/)
       [params.page.comment.artalk]
         enable = true
@@ -1212,9 +1212,9 @@ defaultContentLanguageInSubdir = true
       [params.page.comment.giscus]
         enable = true
         repo = "LiuTxxx/LiuTxxx.github.io"
-        repoId = "R_kgDOJ6RQBA"
+        repoId = "R_kgDOMN6xVA"
         category = "General"
-        categoryId = "DIC_kwDOJ6RQBM4CgW7X"
+        categoryId = "DIC_kwDOMN6xVM4CgXU2"
         mapping = "title"
         origin = "https://giscus.app/client.js" # Or set it to your self-hosted domain
         strict = "0" # FixIt NEW | 0.2.18
