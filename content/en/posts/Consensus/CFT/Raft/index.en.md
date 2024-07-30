@@ -1,6 +1,6 @@
 ---
 weight: 0
-title: WebUI Installation
+title: Raft
 date: 2024-07-29
 type: posts
 author:
@@ -24,5 +24,4 @@ reward: true
 hiddenFromRelated: true
 toc:
   auto: false
-
 ---
