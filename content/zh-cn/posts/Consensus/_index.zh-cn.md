@@ -1,9 +1,9 @@
 ---
-title: CFT 共识算法
+title: 共识算法
 date: 2024-07-30
 aliases:
-  - /zh-cn/posts/Consensus/CFT
-description: CFT 共识算法
+  - /zh-cn/posts/Consensus
+description: 共识算法
 keywords:
-  - CFT 共识算法
+  - 共识算法
 ---

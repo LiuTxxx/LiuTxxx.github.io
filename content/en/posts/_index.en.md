@@ -1,7 +1,7 @@
 ---
 title: Posts
 aliases:
-  - /zh-cn/posts/
+  - /en/posts/
 description: Posts
 keywords:
   - Posts

@@ -1,10 +1,10 @@
 ---
-title: CFT Consensus
+title: Consensus
 date: 2024-07-30
 aliases:
-  - /en/posts/Consensus/CFT
-description: CFT Consensus
+  - /en/posts/Consensus
+description: Consensus
 keywords:
-  - CFT Consensus
+  - Consensus
 ---
 
