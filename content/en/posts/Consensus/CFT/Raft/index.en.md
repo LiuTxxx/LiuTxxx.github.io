@@ -1,27 +1,15 @@
 ---
-weight: 0
-title: Raft
-date: 2024-07-29
+title: 
+date: 2024-07-30T15:46:24+0800
 type: posts
-author:
-  name: Liu Tong
-  link: https://liutxxx.github.io/en/
-description: Installation steps of WebUI for Stable Diffusion.
+description: 
 resources:
-  - name: featured-image
+- name: featured-image
     src: 911.jpg
 tags:
-  - Installation
-  - WebUI
-  - AI
-  - Stable Diffusion
+- 
 categories:
-  - Tutorial
+- 
 collections:
-  - Stable Diffusion
-lightgallery: true
-reward: true
-hiddenFromRelated: true
-toc:
-  auto: false
+- 
 ---

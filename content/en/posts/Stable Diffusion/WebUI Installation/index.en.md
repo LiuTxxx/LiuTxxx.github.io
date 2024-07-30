@@ -1,11 +1,7 @@
 ---
-weight: 0
 title: WebUI Installation
-date: 2024-07-29
+date: 2024-07-29T15:43:27+08:00
 type: posts
-author:
-  name: Liu Tong
-  link: https://liutxxx.github.io/en/
 description: Installation steps of WebUI for Stable Diffusion.
 resources:
   - name: featured-image
@@ -19,10 +15,4 @@ categories:
   - Tutorial
 collections:
   - Stable Diffusion
-lightgallery: true
-reward: true
-hiddenFromRelated: true
-toc:
-  auto: false
-
 ---

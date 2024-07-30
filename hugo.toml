@@ -441,8 +441,8 @@ defaultContentLanguageInSubdir = true
   [params.author]
     name = "Liu Tong"
     email = "liut0130@gmail.com"
-    link = ""
-    avatar = ""
+    link = "https://liutxxx.github.io/"
+    avatar = "/favicon.jpg"
 
   # FixIt 0.3.0 | NEW public Git repository information only then enableGitInfo is true
   [params.gitInfo]
@@ -915,7 +915,7 @@ defaultContentLanguageInSubdir = true
     # FixIt 0.3.0 | NEW whether to hide a page from RSS feed
     hiddenFromRss = false
     # FixIt 0.3.0 | NEW whether to hide a page from related posts
-    hiddenFromRelated = false
+    hiddenFromRelated = true
     # whether to enable twemoji
     twemoji = false
     # whether to enable lightgallery
@@ -968,7 +968,7 @@ defaultContentLanguageInSubdir = true
       # whether to keep the static table of the contents in front of the post
       keepStatic = false
       # whether to make the table of the contents in the sidebar automatically collapsed
-      auto = true
+      auto = false
       # FixIt 0.2.13 | NEW position of TOC ["left", "right"]
       position = "right"
     # FixIt 0.2.13 | NEW Display a message at the beginning of an article to warn the reader that its content might be expired
