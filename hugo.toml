@@ -1094,16 +1094,15 @@ defaultContentLanguageInSubdir = true
         category = "General"
         categoryId = "DIC_kwDOMN6xVM4CgXU2"
         mapping = "title"
-        origin = "https://giscus.app/client.js" # Or set it to your self-hosted domain
+        origin = "https://giscus.app" # Or set it to your self-hosted domain
         strict = "0" # FixIt NEW | 0.2.18
-        term = ""
         reactionsEnabled = "1"
         emitMetadata = "0"
-        inputPosition = "bottom" # ["top", "bottom"]
+        inputPosition = "top" # ["top", "bottom"]
         lang = "zh-CN"
         lightTheme = "light"
         darkTheme = "dark"
-        lazyLoad = true
+        lazyLoad = false
     # Third-party library config
     [params.page.library]
       [params.page.library.css]
