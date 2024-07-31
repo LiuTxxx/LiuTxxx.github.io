@@ -1099,6 +1099,7 @@ defaultContentLanguageInSubdir = true
         reactionsEnabled = "1"
         emitMetadata = "0"
         inputPosition = "top" # ["top", "bottom"]
+        lang = "en"
         lightTheme = "light"
         darkTheme = "dark"
         lazyLoad = true
