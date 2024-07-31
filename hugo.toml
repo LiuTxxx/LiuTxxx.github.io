@@ -1087,7 +1087,7 @@ defaultContentLanguageInSubdir = true
     # FixIt 0.2.15 | CHANGED Comment config
     [params.page.comment]
       enable = true
-      [params.page.comment.giscus]
+      [languages.en.params.page.comment.giscus]
         enable = true
         repo = "LiuTxxx/LiuTxxx.github.io"
         repoId = "R_kgDOMN6xVA"
@@ -1100,6 +1100,22 @@ defaultContentLanguageInSubdir = true
         emitMetadata = "0"
         inputPosition = "top" # ["top", "bottom"]
         lang = "en"
+        lightTheme = "light"
+        darkTheme = "dark"
+        lazyLoad = true
+      [languages.zh-cn.params.page.comment.giscus]
+        enable = true
+        repo = "LiuTxxx/LiuTxxx.github.io"
+        repoId = "R_kgDOMN6xVA"
+        category = "General"
+        categoryId = "DIC_kwDOMN6xVM4CgXU2"
+        mapping = "title"
+        origin = "https://giscus.app" # Or set it to your self-hosted domain
+        strict = "0" # FixIt NEW | 0.2.18
+        reactionsEnabled = "1"
+        emitMetadata = "0"
+        inputPosition = "top" # ["top", "bottom"]
+        lang = "zh-CN"
         lightTheme = "light"
         darkTheme = "dark"
         lazyLoad = true
