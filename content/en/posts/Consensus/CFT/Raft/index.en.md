@@ -166,7 +166,7 @@ Given the complete Raft algorithm, this section provides some formal proof of sa
 
 ##### Proof of Leader Completeness Property
 
-Let's assume that the Leader Completeness Property does not hold, then prove a contradiction. 
+Let's assume that the Leader Completeness Property does not hold, then prove a contradiction.
 
 Suppose the leader for term $T$ ($leader_T$) commits a log entry from its term, but that log entry is not stored by the leader of some future term. Consider the smallest term $U$ > $T$ whose leader ($leader_U$) does not store the entry.
 
@@ -178,8 +178,6 @@ Suppose the leader for term $T$ ($leader_T$) commits a log entry from its term, 
 6. Otherwise, $leader_U$’s last log term $L$ must be larger than the voter’s (at least $T$), let's say $T<L<U$. However, the earlier leader in term $L$ that created $leader_U$’s last log entry must have contained the committed entry in its log, since we assume $U$ is the smallest term whose leader does not store the entry. Another contradiction.
 
 ##### Proof of State Machine Safety Property
-
-
 
 ### Follower and candidate crashes
 
@@ -195,8 +193,6 @@ Although servers normally take snapshots independently, the leader must occasion
 
 `<a id="1">`[1]`</a>` Ongaro, D., & Ousterhout, J. (2014). In search of an understandable consensus algorithm. In *2014 USENIX annual technical conference (USENIX ATC 14)* (pp. 305-319).
 
-```markdown
 {{< admonition tip >}}
 If you have any questions or find any errors, feel free to interact in the comments section!
 {{< /admonition >}}
-```
