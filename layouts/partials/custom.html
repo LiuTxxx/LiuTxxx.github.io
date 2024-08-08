@@ -6,9 +6,11 @@
   {{- define "custom-head" -}}
   {{- end -}}
   
+
   {{- define "custom-profile" -}}
-  {{- dict "Src" "https://raw.githubusercontent.com/LiuTxxx/LiuTxxx/snake/snake.svg" "Class" "profile-ghchart" "Alt" "Liu's Github chart" "Title" "Liu's Github chart" "Resources" $.Resources | partial "plugin/image.html" -}}
+    {{- dict "Src" "https://raw.githubusercontent.com/LiuTxxx/LiuTxxx/snake/snake.svg" "Class" "profile-ghchart" "Alt" "Liu's Github chart" "Title" "Liu's Github chart" "Style" "width: 100%;" "Resources" $.Resources | partial "plugin/image.html" -}}
   {{- end -}}
+
   
   {{- define "custom-aside" -}}
   {{- end -}}
