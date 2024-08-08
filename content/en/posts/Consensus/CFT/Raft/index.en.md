@@ -30,7 +30,7 @@ Raft applied specific techniques to improve understandability, including **decom
 
 * **Strong Leader**: Log entries only flow from the leader to other servers
 * **Leader election**: Raft uses randomized timers to elect leaders.
-* **Membership changes**: Cluster can continue operating normally during configuration changes.
+* **Membership changes** (Reconfiguration):  Cluster can continue operating normally during configuration changes.
 
 ## The Raft Consensus Algorithm
 
@@ -39,19 +39,19 @@ Raft applied specific techniques to improve understandability, including **decom
 Raft decomposes the consensus problem into three relatively independent subproblems, which are discussed in the subsections that follow:
 
 * **Leader election**: elect new leader when an existing leader fails
-* **Log replication**: the leader accept log entries from clients and replicate them across the cluster
+* **Log replication**: the leader accept request from clients and replicate them across the cluster
 * **Safety**: the key safety properties for Raft are listed below:
   * **Election Safety**: at most one leader can be elected in a given term.
   * **Leader Append-Only**: a leader never overwrites or deletes entries in its own log, it only appends new entries.
-  * **Log Matching**: if two logs contain an entry with the same index and term, then the logs are identical in all entries up through the given index.
-  * **Leader Completeness**: if a log entry is committed in a given term, then that entry will be present in the logs of the leaders for all higher-numbered terms, which means that a committed entry should never be overwritten.
+  * **Log Matching**: if two logs contain an entry with the same index and term number, then the logs are identical in all entries up through the given index.
+  * **Leader Completeness**: if a log entry is committed in a given term, then that entry will be present in the logs of the leaders for all higher-numbered terms, which means that a committed entry should never be overwritten by any leader after it.
   * **State Machine Safety**: if a server has applied a log entry at a given index to its state machine, no other server will ever apply a different log entry for the same index.
 
 #### Replicated State Machines
 
 ![Figure 1](/images/raft-smr.png "Figure 1")
 
-Replicated state machines are typically implemented using a replicated log, as shown in Figure 1. Each server stores a log containing a series of commands, which its state machine executes in order. Each log contains the same commands in the same order, so each state machine processes the same sequence of commands.
+Replicated state machines are typically implemented using a replicated log, as shown in Figure 1. Each server stores a log containing a series of commands, which its state machine executes in order. Each log contains the same commands in the same order, so each state machine processes the same sequence of commands to keep state consistency.
 
 Keeping the replicated log consistent is the job of the consensus algorithm. The consensus module on a server receives commands from clients and adds them to its log. It ensure that every log eventually contains the same requests in the same order, even if some servers fail.
 
@@ -65,17 +65,22 @@ Raft has three main roles: **leader**, **follower**, **candidate**.
 
 In all the normal case, there will be at most one leader, and others are followers or candidates.
 
-**Leader** is resiponsible to handle clients' requests, and if the request is sent to follower, it will redirect this request to leader. when leader receive request from client, it will send messages to all follower to inform them to append an entry to their logs. **Followers** are passive, they only respond requests, don't send request themselves. **Candidate** is used to elect a leader.
+**Leader** is resiponsible to handle clients' requests, and if the request is sent to follower, it will redirect this request to leader. when leader receive request from client, it will append its log and send messages to all follower to inform them to append an entry to their logs. **Followers** are passive, they only respond requests, don't send request themselves. **Candidate** is used to elect a leader.
 
 Raft divide time into **terms**, numbered with consecutive integer, each term begin with an election, a term can end with no leader if no candidate gains enough votes.
 
-Raft communicate with remote procedure calls (**RPC**), each server will record a *current term* number, ***currentTerm*** will be attached to every messages for communication. Servers will compare their *currentTerms*, if stale term found, request will be rejected. The server with lower term number will update its *currentTerm* with the larger one, if this server is leader or candidate, it will turn to a follower.
+Raft servers communicate with remote procedure calls (**RPC**):
+
+* *AppendEntries:* leader send this to inform follower to append entry or as heartbeat.
+* *RequestVote*: candidate send this to request votes.
+
+Each server will record a *current term* number, ***currentTerm*** will be attached to every messages for communication. Servers will compare their *currentTerms*, if stale term found, request will be rejected. The server with lower term number will update its *currentTerm* with the larger one, if this server is leader or candidate, it will turn to a follower.
 
 ### Leader Election
 
-Raft uses **heartbeat** mechanism to detect the liveness and trigger leader election. Leader will send periodic heartbeats (*AppendEntries* that carry no log entries) to all followers, if a follower receives no heartbeat over a period of time, called the election timeout, or receives a vote request, it assumes there is no viable leader and begins an election.
+Raft uses **heartbeat** mechanism to detect the liveness and trigger leader election. Leader will send periodic heartbeats (*AppendEntries* that carry no log entries) to all followers, if a follower receives no heartbeat over a period of time (election timer timeout), it assumes there is no viable leader and begins an election.
 
-Once a follower triggers a election, it will turn to candidate, vote for itself and send *RequestVote* to other server, each server can vote at most one candidate in a given term, on a first-come-first-served basis. A candidate wins an election if it receives votes from a majority of the servers in the same term.
+Once a follower triggers a election, it will increment its *currentTerm* and turn to candidate, vote for itself and send *RequestVote* to other servers, each server can vote at most one candidate in a given term (including the vote to itself), on a first-come-first-served basis (more restriction will be introduced later). A candidate wins an election if it receives votes from a majority of the servers in the same term.
 
 A candidate continues in this state until one of three things happens:
 
@@ -89,7 +94,7 @@ The candidate receives majority vote in same term, it turns to leader, send hear
 
 #### Another Server Wins
 
-The candidate receives heartbeat with term not smaller than its own, it turns to follower, otherwise reject the request.
+The candidate receives heartbeat with term not smaller than its own, it turns to follower.
 
 #### No Server Wins
 
@@ -166,6 +171,8 @@ Given the complete Raft algorithm, this section provides some formal proof of sa
 
 ##### Proof of Leader Completeness Property
 
+**Leader Completeness Property** states that if a log entry is committed in a given term, then that entry will be present in the logs of the leaders for all higher terms.
+
 Let's assume that the Leader Completeness Property does not hold, then prove a contradiction.
 
 Suppose the leader for term $T$ ($leader_T$) commits a log entry from its term, but that log entry is not stored by the leader of some future term. Consider the smallest term $U$ > $T$ whose leader ($leader_U$) does not store the entry.
@@ -179,20 +186,40 @@ Suppose the leader for term $T$ ($leader_T$) commits a log entry from its term, 
 
 ##### Proof of State Machine Safety Property
 
+**State Machine Safety Property** states that if a server has applied a log entry at a given index to its state machine, no other server will ever apply a different log entry for the same index.
+
+1. At the time a server applies a log entry to its state machine, its log must be identical to the leader’s log up through that entry and the entry must be committed.
+2. Now consider in some term that a server applies a given log index.
+3. The Log Completeness Property guarantees that the leaders for all higher terms will store that same log entry, so servers that apply the index in later terms will apply the same value.
+
 ### Follower and candidate crashes
 
-### Timing and availability
+Above only focus on leader failures. Follower and candidate crashes are much simpler to handle. If a follower or candidate crashes, then future *RequestVote* and *AppendEntries* RPCs sent to it will fail. Raft handles these failures by retrying indefinitely. If a server crashes after completing an RPC but before responding, then it will receive the same RPC again after it restarts. Raft RPCs are idempotent, so this causes no harm. For example, if a follower receives an *AppendEntries* request that includes log entries already present in its log, it ignores those entries in the new request.
+
+### Timing and Availability
+
+To ensure availability, Raft will be able to elect and maintain a steady leader as long as the system satisfies the following timing requirement:
+
+$broadcastTime ≪ electionTimeout ≪ MTBF$
+
+where *MTBF* is the average time between failures for a single server.
 
 ### Cluster Membership Changes
+
+TODO
 
 ### Log Compaction
 
 Although servers normally take snapshots independently, the leader must occasionally send snapshots to followers that lag behind. This happens when the leader has already discarded the next log entry that it needs to send to a follower.
 
+### Client Interaction
+
+TODO
+
 ## References
 
-<a id="1">[1]</a> Ongaro, D., & Ousterhout, J. (2014). In search of an understandable consensus algorithm. In *2014 USENIX annual technical conference (USENIX ATC 14)* (pp. 305-319).
+`<a id="1">`[1]`</a>` Ongaro, D., & Ousterhout, J. (2014). In search of an understandable consensus algorithm. In *2014 USENIX annual technical conference (USENIX ATC 14)* (pp. 305-319).
 
 {{< admonition tip >}}
-If you have any questions or find any errors, feel free to interact in the comments section!
+If you have any questions or find any errors, feel free to interact in the comments section or email me!
 {{< /admonition >}}
