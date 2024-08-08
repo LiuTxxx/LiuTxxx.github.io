@@ -17,7 +17,7 @@ title = ""
 baseURL = "http://localhost:1313"
 
 # theme list
-theme = ["FixIt"] # enable in your site config file
+theme = ["FixIt", "component-projects"] # enable in your site config file
 
 # determines default content language ["en", "zh-cn", "fr", "pl", ...]
 defaultContentLanguage = "en"

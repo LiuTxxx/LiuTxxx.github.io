@@ -218,7 +218,7 @@ TODO
 
 ## References
 
-`<a id="1">`[1]`</a>` Ongaro, D., & Ousterhout, J. (2014). In search of an understandable consensus algorithm. In *2014 USENIX annual technical conference (USENIX ATC 14)* (pp. 305-319).
+<text id="1">[1]</a> Ongaro, D., & Ousterhout, J. (2014). In search of an understandable consensus algorithm. In *2014 USENIX annual technical conference (USENIX ATC 14)* (pp. 305-319).
 
 {{< admonition tip >}}
 If you have any questions or find any errors, feel free to interact in the comments section or email me!

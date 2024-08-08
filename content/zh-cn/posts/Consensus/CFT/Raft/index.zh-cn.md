@@ -1,5 +1,5 @@
 ---
-title: Raft算法详解
+title: Raft 算法详解
 date: 2024-07-30T15:46:24+0800
 type: posts
 description: Raft算法的详细介绍
@@ -16,7 +16,6 @@ categories:
 collections:
   - CFT共识
 ---
-
 {{< admonition abstract >}}
 本文基于Ongaro等人 [[1]](#1) 的论文进行编写。
 {{< /admonition >}}
@@ -47,7 +46,6 @@ Raft将共识问题解构为3个相对独立的子问题，分别为：
   * **日志匹配**：如果有两份日志中的某条记录拥有相同的下标和任期号，那么这两份日志中的此下标往前的所有记录均能匹配；
   * **领导人完整性**：如果一个日志记录在某个任期被提交，那么这条记录应当会在被记录在该任期之后所有任期中的领导人日志中，也就是说，被提交过的记录不应当被此后的领导人覆写；
   * **状态机安全**：如果一个机器已经将日志中某下标的记录中的命令应用于自身状态机，那么其他机器不能将同下标的不同日志记录应用于自身状态机。
-
 
 #### 复制状态机
 
@@ -188,9 +186,9 @@ Suppose the leader for term $T$ ($leader_T$) commits a log entry from its term, 
 
 ##### Proof of State Machine Safety Property
 
-**State Machine Safety Property** states that if a server has applied a log entry at a given index to its state machine, no other server will ever apply a different log entry for the same index. 
+**State Machine Safety Property** states that if a server has applied a log entry at a given index to its state machine, no other server will ever apply a different log entry for the same index.
 
-1. At the time a server applies a log entry to its state machine, its log must be identical to the leader’s log up through that entry and the entry must be committed. 
+1. At the time a server applies a log entry to its state machine, its log must be identical to the leader’s log up through that entry and the entry must be committed.
 2. Now consider in some term that a server applies a given log index.
 3. The Log Completeness Property guarantees that the leaders for all higher terms will store that same log entry, so servers that apply the index in later terms will apply the same value.
 
@@ -200,7 +198,7 @@ Above only focus on leader failures. Follower and candidate crashes are much sim
 
 ### Timing and Availability
 
-To ensure availability, Raft will be able to elect and maintain a steady leader as long as the system satisfies the following timing requirement: 
+To ensure availability, Raft will be able to elect and maintain a steady leader as long as the system satisfies the following timing requirement:
 
 $broadcastTime ≪ electionTimeout ≪ MTBF$
 
@@ -220,7 +218,7 @@ TODO
 
 ## References
 
-<a id="1">[1]</a> Ongaro, D., & Ousterhout, J. (2014). In search of an understandable consensus algorithm. In *2014 USENIX annual technical conference (USENIX ATC 14)* (pp. 305-319).
+`<a id="1">`[1]`</a>` Ongaro, D., & Ousterhout, J. (2014). In search of an understandable consensus algorithm. In *2014 USENIX annual technical conference (USENIX ATC 14)* (pp. 305-319).
 
 {{< admonition tip >}}
 如果对本文有问题或发现错误，欢迎在评论区参与互动或发送邮件联系我！

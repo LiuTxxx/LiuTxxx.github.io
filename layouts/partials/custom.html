@@ -7,7 +7,7 @@
   {{- end -}}
   
   {{- define "custom-profile" -}}
-  {{- dict "Src" "https://raw.githubusercontent.com/LiuTxxx/LiuTxxx/snake/snake.svg" "Class" "profile-ghchart img-responsive-center" "Alt" "Liu's Github chart" "Title" "Liu's Github chart" "Resources" $.Resources | partial "plugin/image.html" -}}
+    {{- dict "Src" "https://raw.githubusercontent.com/LiuTxxx/LiuTxxx/snake/snake.svg" "Class" "profile-ghchart img-responsive-center" "Alt" "Liu's Github chart" "Title" "Liu's Github chart" "Resources" $.Resources | partial "plugin/image.html" -}}
   {{- end -}}  
 
   {{- define "custom-aside" -}}
@@ -20,5 +20,6 @@
   {{- end -}}
   
   {{- define "custom-assets" -}}
+    {{- partial "inject/component-projects.html" . -}}
   {{- end -}}
   
