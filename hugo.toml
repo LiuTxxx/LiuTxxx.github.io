@@ -490,8 +490,12 @@ defaultContentLanguageInSubdir = true
     highlightTag = "em"
     # whether to use the absolute URL based on the baseURL in search index
     absoluteURL = false
-    [params.search.algolia]
-      index = "github_page"
+    [languages.en.params.search.algolia]
+      index = "index.en"
+      appID = "UI7A7723G5"
+      searchKey = "ea12140b6c165f0b426c453e981371f5"
+    [languages.zh-cn.params.search.algolia]
+      index = "index.zh-cn"
       appID = "UI7A7723G5"
       searchKey = "ea12140b6c165f0b426c453e981371f5"
 

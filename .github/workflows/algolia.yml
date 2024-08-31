@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - main
-    # paths:
-    #   - "content"
+    paths:
+      - "content"
   workflow_dispatch:
 
 jobs:
