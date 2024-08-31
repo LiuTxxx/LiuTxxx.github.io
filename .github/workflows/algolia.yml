@@ -3,7 +3,7 @@ name: Update Algolia Search Index
 on:
   push:
     branches:
-      - master
+      - main
     paths:
       - "content"
   workflow_dispatch:
