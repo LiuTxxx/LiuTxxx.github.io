@@ -76,9 +76,21 @@ jobs:
   generate-algolia:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: install hugo-lovelt-algolia
-        run: npm install hugo-lovelt-algolia -g
-      - name: generate index and update
-        run: hugo-lovelt-algolia -s
+      - name: Update Algolia Index (en)
+        env:
+          ALGOLIA_APP_ID: UI7A7723G5 # algolia Application ID
+          ALGOLIA_ADMIN_KEY: ${{ secrets.ALGOLIA_ADMIN_KEY }} # algolia Admin API Key
+          ALGOLIA_INDEX_NAME: "index.en" # algolia index name
+          ALGOLIA_INDEX_FILE: "./public/en/index.json" # local search.json file path
+        run: |
+          npm run algolia          
+
+      - name: Update Algolia Index (zh-cn)
+        env:
+          ALGOLIA_APP_ID: UI7A7723G5
+          ALGOLIA_ADMIN_KEY: ${{ secrets.ALGOLIA_ADMIN_KEY }}
+          ALGOLIA_INDEX_NAME: "index.zh-cn"
+          ALGOLIA_INDEX_FILE: "./public/zh-cn/index.json"
+        run: |
+          npm run algolia          
 

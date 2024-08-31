@@ -304,6 +304,7 @@ defaultContentLanguageInSubdir = true
 [Permalinks]
   # posts = ":year/:month/:filename"
   posts = "posts/:slugorfilename"
+  # posts = "/:sections/:slug/"
 
 # -------------------------------------------------------------------------------------
 # Privacy Configuration
