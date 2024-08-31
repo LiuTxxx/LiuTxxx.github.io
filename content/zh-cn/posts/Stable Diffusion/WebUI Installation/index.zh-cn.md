@@ -14,7 +14,8 @@ tags:
 categories:
   - 教程类
 collections:
-  - Stable Diffusion
+  - WebUI
+
 ---
 
 ## WebUI项目简介

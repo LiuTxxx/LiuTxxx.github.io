@@ -1,5 +1,5 @@
 ---
-title: 
+title: braft æºä»£ç åˆ†æ
 date: 2024-08-19T15:43:23+0800
 type: posts
 description: 
@@ -7,13 +7,20 @@ resources:
   - name: featured-image
     src: 911.jpg
 tags:
-  - 
+  - braft
+  - Raft
+  - SMR
+  - Consensus
 categories:
-  - 
+  - ä»£ç ç¬”è®°
 collections:
-  - 
+  - CFTå…±è¯†
+
+
 ---
+
 TODO: Content is on the way!!!
-{< admonition tip >}
-Èç¹û¶Ô±¾ÎÄÓĞÎÊÌâ»ò·¢ÏÖ´íÎó£¬»¶Ó­ÔÚÆÀÂÛÇø²ÎÓë»¥¶¯»ò·¢ËÍÓÊ¼şÁªÏµÎÒ£¡
-{< /admonition >}
+{{< admonition tip >}}
+å¦‚æœå¯¹æœ¬æ–‡æœ‰é—®é¢˜æˆ–å‘ç°é”™è¯¯ï¼Œæ¬¢è¿åœ¨è¯„è®ºåŒºå‚ä¸äº’åŠ¨æˆ–å‘é€é‚®ä»¶è”ç³»æˆ‘ï¼
+{{< /admonition >}}
+

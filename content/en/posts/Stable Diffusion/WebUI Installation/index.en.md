@@ -14,7 +14,7 @@ tags:
 categories:
   - Tutorial
 collections:
-  - Stable Diffusion WebUI
+  - WebUI
 ---
 ## Introduction
 

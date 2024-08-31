@@ -7,11 +7,14 @@ resources:
   - name: featured-image
     src: 911.jpg
 tags:
-  - 
+  - braft
+  - Raft
+  - SMR
+  - Consensus
 categories:
-  - 
+  - Code Notes
 collections:
-  - 
+  - CFT Consensus
 ---
 ## Introduction
 
@@ -45,6 +48,6 @@ builtin service for what?
 
 
 
-{< admonition tip >}
+{{< admonition tip >}}
 If you have any questions or find any errors, feel free to interact in the comments section or email me!
-{< /admonition >}
+{{< /admonition >}}
