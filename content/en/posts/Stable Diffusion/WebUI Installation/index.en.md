@@ -49,3 +49,7 @@ Thanks to the strong open-source community, various convenient tools and plugins
 2. Run `webui-user.bat` from Windows Explorer as normal, non-administrator, user.
 
 **TODO**: Add installation guide on linux.
+
+{{< admonition tip >}}
+If you have any questions or find any errors, feel free to interact in the comments section or email me!
+{{< /admonition >}}

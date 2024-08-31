@@ -56,3 +56,6 @@ Stable Diffusion (SD) 是一个强大的基于人工智能的开源生成模型�
 
 **TODO**: 加入linux系统下的安装指南。
 
+{{< admonition tip >}}
+如果对本文有问题或发现错误，欢迎在评论区参与互动或发送邮件联系我！
+{{< /admonition >}}

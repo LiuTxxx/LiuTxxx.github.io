@@ -26,10 +26,10 @@ Consensus algorithms can enforce a collection of machines to maintain same total
 
 However, Paxos is quite difficult to understand, thus, Ongaro et al posted a brand new consensus algorithm that has better understandability and more practical application scenarios: Raft.
 
-Raft applied specific techniques to improve understandability, including **decomposition** (Raft separates leader election, log replication, and safety) and **state space reduction** (Raft reduces the degree of nondeterminism and the ways servers can be inconsistent with each other). Raft is similar in many ways to existing consensus algorithms (e.g. Viewstamped Replication [29, 22]), but it has several novel features:
+Raft applied specific techniques to improve understandability, including **decomposition** and **state space reduction**. Raft is similar in many ways to existing consensus algorithms (e.g. Viewstamped Replication [29, 22]), but it has several novel features:
 
 * **Strong Leader**: Log entries only flow from the leader to other servers
-* **Leader election**: Raft uses randomized timers to elect leaders.
+* **Leader election**: Raft uses randomized timers on leader election to avoid endless loop.
 * **Membership changes** (Reconfiguration):  Cluster can continue operating normally during configuration changes.
 
 ## The Raft Consensus Algorithm
@@ -38,47 +38,81 @@ Raft applied specific techniques to improve understandability, including **decom
 
 Raft decomposes the consensus problem into three relatively independent subproblems, which are discussed in the subsections that follow:
 
-* **Leader election**: elect new leader when an existing leader fails
-* **Log replication**: the leader accept request from clients and replicate them across the cluster
-* **Safety**: the key safety properties for Raft are listed below:
-  * **Election Safety**: at most one leader can be elected in a given term.
-  * **Leader Append-Only**: a leader never overwrites or deletes entries in its own log, it only appends new entries.
-  * **Log Matching**: if two logs contain an entry with the same index and term number, then the logs are identical in all entries up through the given index.
-  * **Leader Completeness**: if a log entry is committed in a given term, then that entry will be present in the logs of the leaders for all higher-numbered terms, which means that a committed entry should never be overwritten by any leader after it.
-  * **State Machine Safety**: if a server has applied a log entry at a given index to its state machine, no other server will ever apply a different log entry for the same index.
+* **Leader election**: Elect new leader when an existing leader fails
+* **Log replication**: The leader accept request from clients and replicate them across the cluster
+* **Safety**: The key safety properties for Raft are listed below:
+  * **Election Safety**: At most one leader can be elected in a given term.
+  * **Leader Append-Only**: A leader never overwrites or deletes entries in its own log, it only appends new entries.
+  * **Log Matching**: If two logs contain an entry with same index and term number, then the logs are identical in all entries up through the given index.
+  * **Leader Completeness**: If a log entry is committed in a given term, then that entry will be present in the logs of subsequent leaders with higher terms, which means that a committed entry should never be overwritten or lost by any leader after the commitment.
+  * **State Machine Safety**: If a server has applied a log entry at a given index to its state machine, no other server will ever apply a different log entry for the same index.
 
 #### Replicated State Machines
 
 ![Figure 1](/images/raft-smr.png "Figure 1")
 
-Replicated state machines are typically implemented using a replicated log, as shown in Figure 1. Each server stores a log containing a series of commands, which its state machine executes in order. Each log contains the same commands in the same order, so each state machine processes the same sequence of commands to keep state consistency.
+Replicated state machines are typically implemented with a replicated Write-Ahead Log (WAL), in Figure 1. Each server stores a log that contains a series of commands, state machine will execute them in log order. 
 
-Keeping the replicated log consistent is the job of the consensus algorithm. The consensus module on a server receives commands from clients and adds them to its log. It ensure that every log eventually contains the same requests in the same order, even if some servers fail.
-
-#### Variables and Storage
-
-TODO...
+Keeping the replicated logs consistent is the job of the consensus algorithm. It ensure that all replicated logs eventually contains same commands in the same order, even if some servers fail.
 
 ### Raft Basics
 
 Raft has three main roles: **leader**, **follower**, **candidate**.
 
-In all the normal case, there will be at most one leader, and others are followers or candidates.
+* **Leader** is responsible for handling clients' requests, and the requests sent to follower will be redirected to leader. When the leader receives a request, it will append the request to its log and send messages to inform other servers to append this request to their logs. 
 
-**Leader** is resiponsible to handle clients' requests, and if the request is sent to follower, it will redirect this request to leader. when leader receive request from client, it will append its log and send messages to all follower to inform them to append an entry to their logs. **Followers** are passive, they only respond requests, don't send request themselves. **Candidate** is used to elect a leader.
+* **Followers** are passive, they only respond requests, don't send request themselves. 
 
-Raft divide time into **terms**, numbered with consecutive integer, each term begin with an election, a term can end with no leader if no candidate gains enough votes.
+* **Candidate** is a server that is currently running for the leader position.
 
-Raft servers communicate with remote procedure calls (**RPC**):
+In all the normal case, there will be **at most one leader**, and others are followers or candidates.
 
-* *AppendEntries:* leader send this to inform follower to append entry or as heartbeat.
-* *RequestVote*: candidate send this to request votes.
+Raft servers communicate with Remote Procedure Calls (**RPCs**), and here are required RPC types:
 
-Each server will record a *current term* number, ***currentTerm*** will be attached to every messages for communication. Servers will compare their *currentTerms*, if stale term found, request will be rejected. The server with lower term number will update its *currentTerm* with the larger one, if this server is leader or candidate, it will turn to a follower.
+* ***AppendEntries***: Leader send this to inform follower to append entry or as heartbeat.
+* ***RequestVote***: Candidate send this to request votes.
+
+Raft uses **heartbeat** mechanism to detect the liveness and trigger leader election. Leader will send periodic heartbeats (***AppendEntries*** that carry no log entries) to all followers to indicate its liveness.
+
+Raft divide time into **terms**, numbered with consecutive integer, each term begin with an election, a term can end with no leader if no candidate get enough votes.
+
+#### States and Storage
+
+1. States on persistent storage (**disk**) for **all server**:
+
+   * ***currentTerm***: Highest term the server has seen. Initialized to 0, and increase monotonically.
+   * ***votedFor***: Candidate ID that voted for in the current term. Initialized to null.
+   * ***log[]***: Log entries, each entry contains a command and term of the leader when creates this entry.
+
+   In some implementations like braft [[4]](#4), these states also have a copy in memory for efficient access.
+
+2. States on volatile storage (**memory**) for **all server**:
+   * ***commitIndex***: Index of highest log entry known to be committed. Initialized to 0.
+   * ***lastApplied***: Index of highest log entry applied to state machine. Initialized to 0.
+
+3. States on volatile storage (**memory**) for **leaders**:
+   * ***nextIndex[]***: Array that records index of the next log entry to send to for each server. Initialized to the leader's last log index +1.
+   * ***matchIndex[]***: Array that records index of the highest log entry known to be replicated for each server. Initialized to 0.
+
+#### States Transition
+
+***currentTerm***
+
+The ***currentTerm*** will be attached to every messages sent between servers. Server rejects the request with a term that is smaller than (stale) its ***currentTerm***. The server with stale term will update its ***currentTerm*** with the received one, if this server is leader or candidate, it turns to a follower.
+
+Besides, when a follower triggers a timeout and start an election, it will increase the ***currentTerm*** by 1.
+
+***votedFor***
+
+The ***votedFor*** will be set to the candidate ID if the server grant a vote to a validate candidate, and in each time the ***currentTerm*** increases, the ***votedFor*** will be reset to null.
+
+***log[]***
+
+
 
 ### Leader Election
 
-Raft uses **heartbeat** mechanism to detect the liveness and trigger leader election. Leader will send periodic heartbeats (*AppendEntries* that carry no log entries) to all followers, if a follower receives no heartbeat over a period of time (election timer timeout), it assumes there is no viable leader and begins an election.
+
 
 Once a follower triggers a election, it will increment its *currentTerm* and turn to candidate, vote for itself and send *RequestVote* to other servers, each server can vote at most one candidate in a given term (including the vote to itself), on a first-come-first-served basis (more restriction will be introduced later). A candidate wins an election if it receives votes from a majority of the servers in the same term.
 
@@ -102,7 +136,7 @@ In a period of time, no candidate gets majority votes, triggers election timeout
 
 ![Figure 2](/images/raft-server-state.png "Figure 2")
 
-The server state transition diagram are shown in the Figure 2.
+The server role transition diagram is shown in the Figure 2.
 
 ### Log Replication
 
